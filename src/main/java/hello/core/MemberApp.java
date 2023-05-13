@@ -1,12 +1,19 @@
 package hello.core;
 
+import org.springframework.context.*;
+import org.springframework.context.annotation.*;
+
 import hello.core.member.*;
 
 public class MemberApp {
 
 	public static void main(String[] args) {
-		AppConfig appConfig = new AppConfig();
-		MemberService memberService = appConfig.memberService();
+		//AppConfig appConfig = new AppConfig();
+		//MemberService memberService = appConfig.memberService();
+		
+		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+		MemberService memberService = (MemberService) applicationContext.getBean(/*"memberSerivce"*/ MemberService.class); //메소드 이름으로 등록
+		
 		Member member = new Member(1L, "memberA", Grade.VIP);
 		memberService.join(member);
 		Member findMember = memberService.findMember(1L);
