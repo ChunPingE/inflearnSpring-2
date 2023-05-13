@@ -10,7 +10,7 @@ import org.springframework.context.annotation.*;
 
 import hello.core.member.*;
 
-public class ApplicationContextSameBeanFindtest {
+public class ApplicationContextSameBeanFindTest {
 
 	AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(SameBeanConfig.class);
 
