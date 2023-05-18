@@ -1,7 +1,10 @@
 package hello.core.discount;
 
+import org.springframework.stereotype.*;
+
 import hello.core.member.*;
 
+@Component
 public class FixDiscountPolicy implements DiscountPolicy {
 
 	private int discountFixAmount = 1000;

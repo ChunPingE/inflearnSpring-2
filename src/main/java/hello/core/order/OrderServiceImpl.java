@@ -3,6 +3,7 @@ package hello.core.order;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
+import hello.core.annotation.*;
 import hello.core.discount.*;
 import hello.core.member.*;
 
@@ -14,17 +15,18 @@ public class OrderServiceImpl implements OrderService {
 	// private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
 	// private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
-	@Autowired
-	public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-		this.memberRepository = memberRepository;
-		this.discountPolicy = discountPolicy;
-	}
-
 	@Override
 	public Order createOrder(Long memberId, String itemName, int itemPrice) {
 		Member member = memberRepository.findById(memberId);
 		int discountPrice = discountPolicy.discount(member, itemPrice);
 		return new Order(memberId, itemName, itemPrice, discountPrice);
+	}
+
+	@Autowired
+	public OrderServiceImpl(MemberRepository memberRepository,
+			@MainDiscountPolicy DiscountPolicy discountPolicy) {
+		this.memberRepository = memberRepository;
+		this.discountPolicy = discountPolicy;
 	}
 
 	// 테스트 용도
